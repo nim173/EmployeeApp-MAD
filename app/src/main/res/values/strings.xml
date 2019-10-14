@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Practice</string>
+    <string name="edit_employee">EDIT EMPLOYEE</string>
+    <string name="search_employee">SEARCH EMPLOYEE</string>
+    <string name="add_employee">ADD EMPLOYEE</string>
+    <string name="name">Name</string>
+    <string name="telephone">Telephone</string>
+    <string name="gender">Gender</string>
+    <string name="type">Type</string>
+    <string name="_0714206911">0714206911</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="button">Button</string>
+    <string name="search">Search</string>
+    <string name="emp_no">Emp No</string>
+    <string name="emp_number">Emp Number</string>
+    <string-array name="types_array">
+        <item>Permanent Employee</item>
+        <item>Temporary Employee</item>
+    </string-array>
+    <string-array name="types_array2">
+        <item>All Employees</item>
+        <item>Permanent Employees</item>
+        <item>Temporary Employees</item>
+    </string-array>
+</resources>
