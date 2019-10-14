@@ -10,20 +10,18 @@ import androidx.annotation.Nullable;
 
 import com.example.practice.model.EmployeeModel;
 
-import java.util.List;
-
 public class DBHandler extends SQLiteOpenHelper {
 
-    static final String DATABASE_NAME = "emp.db";
+    private static final String DATABASE_NAME = "emp.db";
 
-    static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + EmployeeInfo.Employee.TABLE_NAME + "(" +
+    private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + EmployeeInfo.Employee.TABLE_NAME + "(" +
             EmployeeInfo.Employee._ID + " INTEGER PRIMARY KEY," +
             EmployeeInfo.Employee.COLUMN_NAME_NAME + " TEXT," +
             EmployeeInfo.Employee.COLUMN_NAME_TELEPHONE + " INTEGER," +
             EmployeeInfo.Employee.COLUMN_NAME_GENDER + " TEXT," +
             EmployeeInfo.Employee.COLUMN_NAME_TYPE + " TEXT)";
 
-    static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + EmployeeInfo.Employee.TABLE_NAME;
+    private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + EmployeeInfo.Employee.TABLE_NAME;
 
     public DBHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
