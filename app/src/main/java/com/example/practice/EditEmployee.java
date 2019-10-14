@@ -48,40 +48,54 @@ public class EditEmployee extends AppCompatActivity {
 
     public void editEmployee(View view) {      // employee id (primary key) should not be able to be updated
         EmployeeModel employeeModel = new EmployeeModel();
-        employeeModel.setName(name.getText().toString());
-        employeeModel.setTelephone(Integer.parseInt(telephone.getText().toString()));
-        employeeModel.setGender(((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString());
-        employeeModel.setType(spinner.getSelectedItem().toString());
-        if (dbHandler.updateEmployee(Integer.parseInt(((EditText)findViewById(R.id.empNo)).getText().toString()) ,employeeModel)) {
-            Toast.makeText(this, "Updated successfully", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "!Error", Toast.LENGTH_SHORT).show();
+        try {
+            if (!("".equals(name.getText().toString()))) {
+                employeeModel.setName(name.getText().toString());
+                employeeModel.setTelephone(Integer.parseInt(telephone.getText().toString()));
+                employeeModel.setGender(((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString());
+                employeeModel.setType(spinner.getSelectedItem().toString());
+                if (dbHandler.updateEmployee(Integer.parseInt(((EditText) findViewById(R.id.empNo)).getText().toString()), employeeModel)) {
+                    Toast.makeText(this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "!Error", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Please fill in a name", Toast.LENGTH_SHORT).show();
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please enter a valid telephone number and/or employee number", Toast.LENGTH_SHORT).show();
+        } catch (NullPointerException e) {
+            Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void searchEmployee(View view) {
-        EmployeeModel employeeModel = dbHandler.searchEmployee(Integer.parseInt(((EditText)findViewById(R.id.empNo)).getText().toString()));
-        if (employeeModel != null) {
-            name.setText(employeeModel.getName());
-            // validation for telephone done in xml - input type = number
-            telephone.setText(String.valueOf(employeeModel.getTelephone()));
+        try {
+            EmployeeModel employeeModel = dbHandler.searchEmployee(Integer.parseInt(((EditText) findViewById(R.id.empNo)).getText().toString()));
+            if (employeeModel != null) {
+                name.setText(employeeModel.getName());
+                // validation for telephone done in xml - input type = number
+                telephone.setText(String.valueOf(employeeModel.getTelephone()));
 
-            if ("Male".equals(employeeModel.getGender())) {
-                male.setChecked(true);
-            } else if ("Female".equals(employeeModel.getGender())) {
-                female.setChecked(true);
+                if ("Male".equals(employeeModel.getGender())) {
+                    male.setChecked(true);
+                } else if ("Female".equals(employeeModel.getGender())) {
+                    female.setChecked(true);
+                } else {
+                    male.setChecked(false);
+                    male.setChecked(false);
+                }
+
+                if ("Permanent Employee".equals(employeeModel.getType())) {
+                    spinner.setSelection(0);
+                } else if ("Temporary Employee".equals(employeeModel.getType())) {
+                    spinner.setSelection(1);
+                }
             } else {
-                male.setChecked(false);
-                male.setChecked(false);
+                Toast.makeText(this, "Invalid employee ID", Toast.LENGTH_SHORT).show();
             }
-
-            if ("Permanent Employee".equals(employeeModel.getType())) {
-                spinner.setSelection(0);
-            } else if ("Temporary Employee".equals(employeeModel.getType())) {
-                spinner.setSelection(1);
-            }
-        } else {
-            Toast.makeText(this, "Invalid employee ID", Toast.LENGTH_SHORT).show();
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please enter a valid telephone number", Toast.LENGTH_SHORT).show();
         }
     }
 }
